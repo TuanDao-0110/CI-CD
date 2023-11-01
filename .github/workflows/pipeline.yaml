@@ -1,0 +1,28 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - master
+      # note that your "main" branch might be called main instead of master
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: ./full-stack-testing/
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: check ls
+        run: ls
+      - name: instal package
+        run: npm install
+      - name: eslint
+        run: npm run eslint
+      
