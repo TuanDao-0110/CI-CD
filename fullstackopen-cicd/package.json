@@ -11,7 +11,8 @@
     "build": "webpack --mode production",
     "lint-fix-All": "eslint --fix --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "cypress:open": "cypress open",
-    "test:e2e": "cypress run"
+    "test:e2e": "cypress run",
+    "clean":"rm -rf dist && echo 'Done' "
   },
   "repository": {
     "type": "git",
