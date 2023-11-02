@@ -57,15 +57,77 @@
 
 
 
-name: Deployment pipeline
+# name: Deployment pipeline
 
+# on:
+#   push:
+#     branches:
+#       - master
+#       # note that your "main" branch might be called main instead of master
+# jobs:
+#   simple_deployment_pipeline:
+#     runs-on: ${{ matrix.os }}
+#     continue-on-error: true
+#     strategy:
+#       matrix:
+#         os:
+#           - ubuntu-latest
+#           - macos-latest
+#         bun-version:
+#           - latest
+#           - canary
+#           - "0.5.6"
+#           - "9be68ac2350b965037f408ce4d47c3b9d9a76b63"
+#     defaults:
+#       run:
+#         working-directory: ./fullstackopen-cicd/
+#     steps:
+#       - id: checkout
+#         name: Checkout
+#         uses: actions/checkout@v3
+#       - id: setup-bun
+#         name: Setup Bun
+#         uses: ./
+#         with:
+#           bun-version: ${{ matrix.bun-version }}
+#       - id: verify-bun
+#         name: Verify Bun
+#         run: |
+#           bun --version
+#       - name: check ls
+#         run: ls
+#       - name: instal package
+#         run: bun run install
+#       - name: eslint
+#         run: bun run eslint
+#       - name: build
+#         run: bun run build
+#       - name: test
+#         run: bun run test
+#       - name: e2e tests
+#         uses: cypress-io/github-action@v6
+#         with: 
+#           working-directory: fullstackopen-cicd
+#           command: bun run test:e2e
+#           start: bun run start-prod
+#           wait-on: https://localhost:5000
+
+
+
+
+
+
+name: Setup Bun
 on:
   push:
     branches:
-      - master
-      # note that your "main" branch might be called main instead of master
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
 jobs:
-  simple_deployment_pipeline:
+  setup-bun:
     runs-on: ${{ matrix.os }}
     continue-on-error: true
     strategy:
@@ -78,9 +140,6 @@ jobs:
           - canary
           - "0.5.6"
           - "9be68ac2350b965037f408ce4d47c3b9d9a76b63"
-    defaults:
-      run:
-        working-directory: ./fullstackopen-cicd/
     steps:
       - id: checkout
         name: Checkout
@@ -94,20 +153,21 @@ jobs:
         name: Verify Bun
         run: |
           bun --version
-      - name: check ls
-        run: ls
-      - name: instal package
-        run: bun run install
-      - name: eslint
-        run: bun run eslint
-      - name: build
-        run: bun run build
-      - name: test
-        run: bun run test
-      - name: e2e tests
-        uses: cypress-io/github-action@v6
-        with: 
-          working-directory: fullstackopen-cicd
-          command: bun run test:e2e
-          start: bun run start-prod
-          wait-on: https://localhost:5000
+  setup-bun-from-package-json-version:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup package.json
+        run: |
+          echo "$(jq '. += {"packageManager": "bun@1.0.0"}' package.json)" > package.json
+      - name: Setup Bun
+        uses: ./
+      - name: Verify Bun
+        run: |
+          bun --version
