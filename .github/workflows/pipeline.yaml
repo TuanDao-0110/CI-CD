@@ -84,9 +84,11 @@ jobs:
       - name: instal package
         run: bun install
       - name: eslint
-        run: bun run eslint
-      - name: build
-        run: bun run build
+        run: |
+          bun run eslint
+          bun run build
+      # - name: build
+      #   run: bun run build
       - name: test
         run: bun run test
       - name: e2e tests
