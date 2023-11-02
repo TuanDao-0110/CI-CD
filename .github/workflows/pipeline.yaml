@@ -82,7 +82,7 @@ jobs:
       - name: check ls
         run: ls
       - name: instal package
-        run: bun run install
+        run: bun install
       - name: eslint
         run: bun run eslint
       - name: build
