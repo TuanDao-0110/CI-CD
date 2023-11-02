@@ -49,3 +49,4 @@ now_it_is:
 <li><a href='https://man7.org/linux/man-pages/man1/ls.1.html'>ls</a> used to display a list of files and sub-directories in the current directory </li>
 <li>Set up <a href='https://github.com/actions/checkout'>set up checkout</a> allow <code> Github</code> can acces to your repository.
 <li> More information about <a href='https://docs.github.com/en/actions/examples/using-scripts-to-test-your-code-on-a-runner'>Example</a>
+<li>Using <a href='https://github.com/cypress-io/github-action#custom-test-command'>cypress-action</a>
