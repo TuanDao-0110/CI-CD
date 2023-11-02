@@ -18,7 +18,7 @@ const next = {
   url: 'https://pokeapi.co/api/v2/pokemon/134/',
   name: 'vaporeon',
   id: 134,
-};
+}
 
 const pokemonList = {
   id: 133,
