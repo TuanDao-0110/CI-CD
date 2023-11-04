@@ -1,13 +1,13 @@
-# CI_CD
+# A. CI_CD
 
-### 1. Introduction to CI_CD: 
+### `1. Introduction to CI_CD: `
 <li><a href='https://www.atlassian.com/git/tutorials/using-branches'> Git Branches</a> </li>
 <li>Pull request</li>
 <li>Build (Example with Webpack: for building a production version of React or any other frontend Javascript or Typescript codebase)</li>
 <li>Deploy</li>
 
 
-### 2. CI (Continuous Integration): 
+### `2. CI (Continuous Integration):` 
 
 Developers practicing continuous integration merge their changes back to the main barnch as often as possible.
 
@@ -50,3 +50,38 @@ now_it_is:
 <li>Set up <a href='https://github.com/actions/checkout'>set up checkout</a> allow <code> Github</code> can acces to your repository.
 <li> More information about <a href='https://docs.github.com/en/actions/examples/using-scripts-to-test-your-code-on-a-runner'>Example</a>
 <li>Using <a href='https://github.com/cypress-io/github-action#custom-test-command'>cypress-action</a>
+
+# B. Deployment: 
+
+In case that anything can go wrong, our deployment system should never leave our software in a broken state. 
+
+
+### `Good deployment system:`
+
+- Our deployment system should be able to fail gracefully at any step of the deployment.
+- Our deployment system should never leave our software in broken state.
+- When failure has happened, it should let us know. 
+- Should allow to roll back to a previous deployment. 
+- Our deployment system should handle the situation where a user makes an HTTP request just before/during a deployment.
+- Our deployment system should make sure that the software we are deploying meets the requirements we have set for this
+
+### `Other things:`
+- Fast 
+
+#
+# C. Deployment:
+### `1. Set up sh Files`
+
+- Using `sh` file:
+
+```sh
+#!/bin/bash
+
+echo "Build script"
+
+# add the commands here
+```
+
+- By set up `chmod +x` set execute permission.
+- run script using `./build_step.sh`
+- or run `sh filename.sh`

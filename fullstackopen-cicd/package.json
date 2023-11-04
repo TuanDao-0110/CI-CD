@@ -12,7 +12,9 @@
     "lint-fix-All": "eslint --fix --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "cypress:open": "cypress open",
     "test:e2e": "cypress run",
-    "clean":"rm -rf dist && echo 'Done' "
+    "clean":"rm -rf dist && echo 'Done' ",
+    "deployment-permissions": "chmod ./build_step.sh",
+    "deployment":"sh ./build_step.sh"
   },
   "repository": {
     "type": "git",
