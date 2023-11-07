@@ -91,4 +91,4 @@ echo "Build script"
 ### `1. Working with pull request`
 
 - Create a pull request for someone to review your changes before merged into the `main/master` branch
-- 
+- Using <a href='https://docs.github.com/en/actions/learn-github-actions/contexts#github-context'> Context </a> will gives various kinds of information about the code the workflow is run
