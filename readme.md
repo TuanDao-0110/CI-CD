@@ -92,3 +92,14 @@ echo "Build script"
 
 - Create a pull request for someone to review your changes before merged into the `main/master` branch
 - Using <a href='https://docs.github.com/en/actions/learn-github-actions/contexts#github-context'> Context </a> will gives various kinds of information about the code the workflow is run
+
+
+```yaml
+if: ${{ github.event_name == 'push' }}
+```
+### `2. Versioning`
+
+- 
+
+
+
