@@ -85,3 +85,10 @@ echo "Build script"
 - By set up `chmod +x` set execute permission.
 - run script using `./build_step.sh`
 - or run `sh filename.sh`
+
+
+# D. Keeping green:
+### `1. Working with pull request`
+
+- Create a pull request for someone to review your changes before merged into the `main/master` branch
+- 
