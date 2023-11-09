@@ -99,7 +99,14 @@ if: ${{ github.event_name == 'push' }}
 ```
 ### `2. Versioning`
 
-- 
+- Versioning is to uniquely identify the software we're running and the code associated with it.
+
+`Example:`
+
+```
+ if the version is 1.2.3, it has 1 as the major version, 2 is the minor version, and 3 is patch version
+```
+- More explaining can be found at <a href='https://semver.org/'>Semantic </a>
 
 
 
