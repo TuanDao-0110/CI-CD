@@ -108,5 +108,3 @@ if: ${{ github.event_name == 'push' }}
 ```
 - More explaining can be found at <a href='https://semver.org/'>Semantic </a>
 
-
-
