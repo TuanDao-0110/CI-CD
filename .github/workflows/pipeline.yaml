@@ -62,7 +62,7 @@ jobs:
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.55.0
         env:
-          GITHUB_TOKEN: ${{ githu.token }}
+          GITHUB_TOKEN: ${{ github.token }}
 
   Deployment: 
     name: Deploy
