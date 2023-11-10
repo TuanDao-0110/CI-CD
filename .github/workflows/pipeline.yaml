@@ -57,6 +57,7 @@ jobs:
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-22.04
+    if: ${{ github.event_name == 'push' }}
     permissions:
       contents: write
     steps:
