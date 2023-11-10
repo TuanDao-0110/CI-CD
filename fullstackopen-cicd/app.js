@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000
 
 app.use(express.static('dist'))
 app.get('/version', (req, res) => {
-  res.send('wihout skip method') 
+  res.send('wihout skip method call merge') 
 })
 app.get('/health', (req, res) => {
   res.send('ok')
