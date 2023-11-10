@@ -58,21 +58,13 @@ jobs:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-22.04
     if: ${{ github.event_name == 'push' }}
+    if: ${{ toJson(github.event.commits.*.message) == '#skip' }}
     permissions:
       contents: write
     steps:
     - uses: actions/checkout@v3
       with:
         fetch-depth: '0'
-    - name: Check commit message for #skip
-      run: |
-          if git log -1 --pretty=%B | grep -q "#skip"; then
-            echo "Commit message contains #skip. Skipping deployment and version tagging."
-            exit 1
-          else
-            echo "No #skip found. Proceeding with deployment and version tagging."
-          fi
-
     - name: Bump version and push tag
       uses: anothrNick/github-tag-action@1.64.0 # Don't use @master or @v1 unless you're happy to test the latest version
       env:
@@ -82,7 +74,7 @@ jobs:
 
   Deployment: 
     name: Deploy
-    needs: [simple_deployment_pipeline] # Our tests must pass in order to run the deploy job
+    needs: [simple_deployment_pipeline, tag_release] # Our tests must pass in order to run the deploy job
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' }}
     steps:    
