@@ -108,3 +108,5 @@ if: ${{ github.event_name == 'push' }}
 ```
 - More explaining can be found at <a href='https://semver.org/'>Semantic </a>
 
+- Set up <a href='https://github.com/anothrNick/github-tag-action'> `Tag` </a> open source actions developed by a third-party:
+
