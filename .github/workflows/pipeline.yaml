@@ -8,7 +8,7 @@ on:
   pull_request:
     branches: [master]
     types: [opened, synchronize]
-    
+
 jobs:
   hello_world_job:
     name: Hello World
@@ -25,7 +25,7 @@ jobs:
         run: |
           current_content=$(ls -l)
           echo $current_content
-  
+
   simple_deployment_pipeline:
     runs-on: ubuntu-20.04
     defaults:
@@ -48,7 +48,7 @@ jobs:
         run: npm run test
       - name: e2e tests
         uses: cypress-io/github-action@v6
-        with: 
+        with:
           working-directory: fullstackopen-cicd
           command: npm run test:e2e
           start: npm run start-prod
@@ -57,35 +57,29 @@ jobs:
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-22.04
-    if: ${{ github.event_name == 'push' && toJson(github.event.commits.*.message) == '#skip'}}
+    if: "!contains(toJson(github.event.commits.*.message), '#skip')"
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: '0'
-    - name: Bump version and push tag
-      uses: anothrNick/github-tag-action@1.64.0 # Don't use @master or @v1 unless you're happy to test the latest version
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
-        WITH_V: false
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.64.0 # Don't use @master or @v1 unless you're happy to test the latest version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
+          WITH_V: false
 
-
-  Deployment: 
+  Deployment:
     name: Deploy
     needs: [simple_deployment_pipeline, tag_release] # Our tests must pass in order to run the deploy job
     runs-on: ubuntu-latest
-    steps:    
+    steps:
       - name: Deploy
         uses: johnbeynon/render-deploy-action@v0.0.8
         with:
           service-id: ${{ secrets.RENDER_SERVICE_ID }}
           api-key: ${{ secrets.RENDER_API_KEY }}
-
-
-
-
-
 # name: Deployment pipeline
 
 # on:
@@ -120,13 +114,9 @@ jobs:
 #         run: bun run test
 #       - name: e2e tests
 #         uses: cypress-io/github-action@v6
-#         with: 
+#         with:
 #           working-directory: fullstackopen-cicd
 #           command: bun run test:e2e
 #           start: bun run start-prod
 #           wait-on: https://localhost:5000
-
-
-
-
 
