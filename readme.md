@@ -110,3 +110,4 @@ if: ${{ github.event_name == 'push' }}
 
 - Set up <a href='https://github.com/anothrNick/github-tag-action'> `Tag` </a> open source actions developed by a third-party:
 
+- Help to run `workflow` locally by using <a href='https://github.com/nektos/act'></a>
