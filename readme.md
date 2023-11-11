@@ -111,3 +111,6 @@ if: ${{ github.event_name == 'push' }}
 - Set up <a href='https://github.com/anothrNick/github-tag-action'> `Tag` </a> open source actions developed by a third-party:
 
 - Help to run `workflow` locally by using <a href='https://github.com/nektos/act'></a>
+- Set up `commit hash of a third-party action`, that mean we will make sure that in the `third party library`, the code in commit with particular hash does not change in any circumstances. <a href='https://byteenthusiast.medium.com/safely-using-third-party-github-actions-747b9d83ea79'>More explaination, can be found at </a>
+
+
