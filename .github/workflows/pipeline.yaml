@@ -90,12 +90,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'success pipeline'
-        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
-        if: success()
-        with:
-          servity: info
-          details: pipe-line successed !
-          discord-webhook-url: ${{ secrets.WEBHOOKS_URL }}
+          uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+          if: success()
+          with:
+            servity: info
+            details: pipe-line successed !
+            discord-webhook-url: ${{ secrets.WEBHOOKS_URL }}
       - name: Test Failure
           uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
           if: failure()
@@ -116,12 +116,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'success pipeline'
-        if: success()
-        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
-        with:
-          servity: info
-          details:  Deployment successed !
-          discord-webhook-url: ${{ secrets.WEBHOOKS_URL }}
+          if: success()
+          uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+          with:
+            servity: info
+            details:  Deployment successed !
+            discord-webhook-url: ${{ secrets.WEBHOOKS_URL }}
       - name: Test Failure
           uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
           if: failure()
