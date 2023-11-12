@@ -89,51 +89,69 @@ jobs:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-latest
     steps:
-      - name: 'success pipeline'
-          uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
-          if: success()
+      - name: Test Info
+          uses: rjstone/discord-webhook-notify@v1
           with:
-            servity: info
-            details: pipe-line successed !
-            discord-webhook-url: ${{ secrets.WEBHOOKS_URL }}
-      - name: Test Failure
-          uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
-          if: failure()
+              severity: info
+              details: Test succeeded.
+              webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+      - name: Test Warn
+          uses: rjstone/discord-webhook-notify@v1
           with:
-            severity: error
-            details: pipe-line Failed!
-            webhookUrl: ${{ secrets.WEBHOOKS_URL }}
-      - name: Test Cancelled
-          uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
-          if: cancelled()
+              severity: warn
+              details: Test warning.
+              webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+      - name: Test Error
+          uses: rjstone/discord-webhook-notify@v1
           with:
-            severity: warn
-            details: pipe-line Cancelled!
-            webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+              severity: error
+              details: Test error.
+              webhookUrl: ${{ secrets.WEBHOOKS_URL }}    
+      # - name: 'success pipeline'
+      #     uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+      #     if: success()
+      #     with:
+      #       servity: info
+      #       details: pipe-line successed !
+      #       discord-webhook-url: ${{ secrets.WEBHOOKS_URL }}
+      # - name: Test Failure
+      #     uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+      #     if: failure()
+      #     with:
+      #       severity: error
+      #       details: pipe-line Failed!
+      #       webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+      # - name: Test Cancelled
+      #     uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+      #     if: cancelled()
+      #     with:
+      #       severity: warn
+      #       details: pipe-line Cancelled!
+      #       webhookUrl: ${{ secrets.WEBHOOKS_URL }}
 
-  Deployment-notifications:
-    needs: [Deployment]
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'success pipeline'
-          if: success()
-          uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
-          with:
-            servity: info
-            details:  Deployment successed !
-            discord-webhook-url: ${{ secrets.WEBHOOKS_URL }}
-      - name: Test Failure
-          uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
-          if: failure()
-          with:
-            severity: error
-            details: Deployment Failed!
-            webhookUrl: ${{ secrets.WEBHOOKS_URL }}
-      - name: Test Cancelled
-          uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
-          if: cancelled()
-          with:
-            severity: warn
-            details: Deployment Cancelled!
-            webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+  # Deployment-notifications:
+  #   needs: [Deployment]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: 'success pipeline'
+  #         if: success()
+  #         uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+  #         with:
+  #           servity: info
+  #           details:  Deployment successed !
+  #           discord-webhook-url: ${{ secrets.WEBHOOKS_URL }}
+  #     - name: Test Failure
+  #         uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+  #         if: failure()
+  #         with:
+  #           severity: error
+  #           details: Deployment Failed!
+  #           webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+  #     - name: Test Cancelled
+  #         uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+  #         if: cancelled()
+  #         with:
+  #           severity: warn
+  #           details: Deployment Cancelled!
+  #           webhookUrl: ${{ secrets.WEBHOOKS_URL }}
 
