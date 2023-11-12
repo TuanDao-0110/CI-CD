@@ -101,9 +101,9 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Show tag value
-        run: |
-          echo ${{ JSON(needs.tag_release.tag.outputs.new_tag) }}
+      # - name: Show tag value
+      #   run: |
+      #     echo ${{ JSON(needs.tag_release.tag.outputs.new_tag) }}
 
 # notification to discord
 
