@@ -53,10 +53,6 @@ jobs:
           command: npm run test:e2e
           start: npm run start-prod
           wait-on: http://localhost:5000
-      - name: The job has succeeded
-        if: ${{ success() }}
-      - name: The job has failed
-        if: ${{ failure() }}
 
   tag_release:
     needs: [simple_deployment_pipeline]
@@ -75,7 +71,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
           WITH_V: false
 
-
   Deployment:
     name: Deploy
     needs: [simple_deployment_pipeline, tag_release] # Our tests must pass in order to run the deploy job
@@ -87,10 +82,6 @@ jobs:
         with:
           service-id: ${{ secrets.RENDER_SERVICE_ID }}
           api-key: ${{ secrets.RENDER_API_KEY }}
-      - name: The job has succeeded
-        if: ${{ success() }}
-      - name: The job has failed
-        if: ${{ failure() }}
 
   print_tag_value:
     needs: tag_release
