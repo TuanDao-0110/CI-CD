@@ -93,17 +93,17 @@ jobs:
       - name: The job has failed
         if: ${{ failure() }}
 
-  # print_tag_value:
-  #   needs: tag_release
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-  #       with:
-  #         fetch-depth: 0
-      # - name: Show tag value
-      #   run: |
-      #     echo ${{ JSON(needs.tag_release.tag.outputs.new_tag) }}
+  print_tag_value:
+    needs: tag_release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Show tag value
+        run: |
+          echo ${{ JSON(needs.tag_release.tag.outputs.new_tag) }}
 
 # notification to discord
 
