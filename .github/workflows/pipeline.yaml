@@ -104,6 +104,7 @@ jobs:
       - name: Show tag value
         run: |
           echo ${{ JSON(needs.tag_release.tag.outputs.new_tag) }}
+          echo fix
 
 # notification to discord
 
