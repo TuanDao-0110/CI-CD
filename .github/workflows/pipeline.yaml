@@ -85,68 +85,59 @@ jobs:
           service-id: ${{ secrets.RENDER_SERVICE_ID }}
           api-key: ${{ secrets.RENDER_API_KEY }}
 
-  # print_tag_value:
-  #   needs: tag_release
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-  #       with:
-  #         fetch-depth: 0
-  #     - name: Show tag value
-  #       run: echo ${{ JSON(needs.tag_release.tag.outputs.new_tag) }}
+
 
 # notification to discord
 
-# Run-pipeline-notifications:
-#   needs: [simple_deployment_pipeline]
-#   runs-on: ubuntu-latest
-#   steps:
-#     - name: 'success pipeline'
-#       if: success()
-#       uses: tenzin1308/discord-notification@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
-#         with:
-#           servity: info
-#           details: pipe-line successed !
-#           discord-webhook-url: ${{ secrets.WEBHOOKS_URL }}
-#     - name: Test Failure
-#         uses: rjstone/discord-webhook-notify@v1
-#         if: failure()
-#         with:
-#             severity: error
-#             details: pipe-line Failed!
-#             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-#     - name: Test Cancelled
-#         uses: rjstone/discord-webhook-notify@v1
-#         if: cancelled()
-#         with:
-#             severity: warn
-#             details: pipe-line Cancelled!
-#             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+Run-pipeline-notifications:
+  needs: [simple_deployment_pipeline]
+  runs-on: ubuntu-latest
+  steps:
+    - name: 'success pipeline'
+      if: success()
+      uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        with:
+          servity: info
+          details: pipe-line successed !
+          discord-webhook-url: ${{ secrets.WEBHOOKS_URL }}
+    - name: Test Failure
+        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        if: failure()
+        with:
+            severity: error
+            details: pipe-line Failed!
+            webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+    - name: Test Cancelled
+        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        if: cancelled()
+        with:
+            severity: warn
+            details: pipe-line Cancelled!
+            webhookUrl: ${{ secrets.WEBHOOKS_URL }}
 
-# Deployment-notifications:
-#   needs: [Deployment]
-#   runs-on: ubuntu-latest
-#   steps:
-#     - name: 'success pipeline'
-#       if: success()
-#       uses: tenzin1308/discord-notification@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
-#         with:
-#           servity: info
-#           details:  Deployment successed !
-#           discord-webhook-url: ${{ secrets.WEBHOOKS_URL }}
-#     - name: Test Failure
-#         uses: rjstone/discord-webhook-notify@v1
-#         if: failure()
-#         with:
-#             severity: error
-#             details: Deployment Failed!
-#             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-#     - name: Test Cancelled
-#         uses: rjstone/discord-webhook-notify@v1
-#         if: cancelled()
-#         with:
-#             severity: warn
-#             details: Deployment Cancelled!
-#             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+Deployment-notifications:
+  needs: [Deployment]
+  runs-on: ubuntu-latest
+  steps:
+    - name: 'success pipeline'
+      if: success()
+      uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        with:
+          servity: info
+          details:  Deployment successed !
+          discord-webhook-url: ${{ secrets.WEBHOOKS_URL }}
+    - name: Test Failure
+        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        if: failure()
+        with:
+            severity: error
+            details: Deployment Failed!
+            webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+    - name: Test Cancelled
+        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        if: cancelled()
+        with:
+            severity: warn
+            details: Deployment Cancelled!
+            webhookUrl: ${{ secrets.WEBHOOKS_URL }}
 
