@@ -70,6 +70,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
           WITH_V: false
+      - name: show tag
+        run: echo ${{ steps.tag.outputs.new_tag}}
 
   Deployment:
     name: Deploy
@@ -83,16 +85,16 @@ jobs:
           service-id: ${{ secrets.RENDER_SERVICE_ID }}
           api-key: ${{ secrets.RENDER_API_KEY }}
 
-  print_tag_value:
-    needs: tag_release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Show tag value
-        run: echo ${{ JSON(needs.tag_release.tag.outputs.new_tag) }}
+  # print_tag_value:
+  #   needs: tag_release
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Show tag value
+  #       run: echo ${{ JSON(needs.tag_release.tag.outputs.new_tag) }}
 
 # notification to discord
 
