@@ -53,6 +53,10 @@ jobs:
           command: npm run test:e2e
           start: npm run start-prod
           wait-on: http://localhost:5000
+      - name: The job has succeeded
+        if: ${{ success() }}
+      - name: The job has failed
+        if: ${{ failure() }}
 
   tag_release:
     needs: [simple_deployment_pipeline]
@@ -65,10 +69,13 @@ jobs:
         with:
           fetch-depth: '0'
       - name: Bump version and push tag
+        id: tag
         uses: anothrNick/github-tag-action@8c8163ef62cf9c4677c8e800f36270af27930f42
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
           WITH_V: false
+      - name: Echo
+
 
   Deployment:
     name: Deploy
@@ -81,43 +88,72 @@ jobs:
         with:
           service-id: ${{ secrets.RENDER_SERVICE_ID }}
           api-key: ${{ secrets.RENDER_API_KEY }}
-# name: Deployment pipeline
+      - name: The job has succeeded
+        if: ${{ success() }}
+      - name: The job has failed
+        if: ${{ failure() }}
 
-# on:
-#   push:
-#     branches:
-#       - master
-#       # note that your "main" branch might be called main instead of master
-# jobs:
-#   simple_deployment_pipeline:
-#     runs-on: ubuntu-20.04
-#     defaults:
-#       run:
-#         working-directory: ./fullstackopen-cicd/
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v3
-#       - uses: oven-sh/setup-bun@v1
+  PrintTagValue:
+    needs: [tag_release]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'show tag value'
+        run: |
+          echo ${{ steps.tag.outputs.new_tag.new_tag }}
+          echo ${{ steps.tag.outputs.new_tag.tag }}
+          echo ${{ steps.tag.outputs.new_tag.part }}
+          
+# notification to discord
+
+# Run-pipeline-notifications:
+#   needs: [simple_deployment_pipeline]
+#   runs-on: ubuntu-latest
+#   steps:
+#     - name: 'success pipeline'
+#       if: success()
+#       uses: tenzin1308/discord-notification@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
 #         with:
-#           bun-version: latest
-#       - name: Verify Bun
-#         run: |
-#           bun --version
-#       - name: check ls
-#         run: ls
-#       - name: instal package
-#         run: bun install
-#       - name: eslint
-#         run: bun run eslint
-#       - name: build
-#         run: bun run build
-#       - name: test
-#         run: bun run test
-#       - name: e2e tests
-#         uses: cypress-io/github-action@v6
+#           servity: info
+#           details: pipe-line successed !
+#           discord-webhook-url: ${{ secrets.WEBHOOKS_URL }}
+#     - name: Test Failure
+#         uses: rjstone/discord-webhook-notify@v1
+#         if: failure()
 #         with:
-#           working-directory: fullstackopen-cicd
-#           command: bun run test:e2e
-#           start: bun run start-prod
-#           wait-on: https://localhost:5000
+#             severity: error
+#             details: pipe-line Failed!
+#             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+#     - name: Test Cancelled
+#         uses: rjstone/discord-webhook-notify@v1
+#         if: cancelled()
+#         with:
+#             severity: warn
+#             details: pipe-line Cancelled!
+#             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+# Deployment-notifications:
+#   needs: [Deployment]
+#   runs-on: ubuntu-latest
+#   steps:
+#     - name: 'success pipeline'
+#       if: success()
+#       uses: tenzin1308/discord-notification@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+#         with:
+#           servity: info
+#           details:  Deployment successed !
+#           discord-webhook-url: ${{ secrets.WEBHOOKS_URL }}
+#     - name: Test Failure
+#         uses: rjstone/discord-webhook-notify@v1
+#         if: failure()
+#         with:
+#             severity: error
+#             details: Deployment Failed!
+#             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+#     - name: Test Cancelled
+#         uses: rjstone/discord-webhook-notify@v1
+#         if: cancelled()
+#         with:
+#             severity: warn
+#             details: Deployment Cancelled!
+#             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 

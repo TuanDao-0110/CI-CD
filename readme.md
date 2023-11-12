@@ -114,3 +114,17 @@ if: ${{ github.event_name == 'push' }}
 - Set up `commit hash of a third-party action`, that mean we will make sure that in the `third party library`, the code in commit with particular hash does not change in any circumstances. <a href='https://byteenthusiast.medium.com/safely-using-third-party-github-actions-747b9d83ea79'>More explaination, can be found at </a>
 
 
+
+# E. Expanding Further: 
+
+### `1. Visibility and Understanding`
+
+- tracking process of the development, set up some tracking system in `Git` pull requests or commits. 
+- `Example when solve issue 123:`, we can name `pull request is:`
+```
+BUG-123: Fix user copy issue
+```
+- So the `Bug` tracking system would notice the first part of the `PR` name and automatically move the issue to `Done` when the PR is merged. 
+
+### `2. Set up Notification`
+
