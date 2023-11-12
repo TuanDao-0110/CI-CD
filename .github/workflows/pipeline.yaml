@@ -85,28 +85,28 @@ jobs:
           service-id: ${{ secrets.RENDER_SERVICE_ID }}
           api-key: ${{ secrets.RENDER_API_KEY }}
 
-  Run-pipeline-notifications:
-    needs: [simple_deployment_pipeline]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Test Info
-          uses: rjstone/discord-webhook-notify@v1
-          with:
-              severity: info
-              details: Test succeeded.
-              webhookUrl: ${{ secrets.WEBHOOKS_URL }}
-      - name: Test Warn
-          uses: rjstone/discord-webhook-notify@v1
-          with:
-              severity: warn
-              details: Test warning.
-              webhookUrl: ${{ secrets.WEBHOOKS_URL }}
-      - name: Test Error
-          uses: rjstone/discord-webhook-notify@v1
-          with:
-              severity: error
-              details: Test error.
-              webhookUrl: ${{ secrets.WEBHOOKS_URL }}    
+  # Run-pipeline-notifications:
+  #   needs: [simple_deployment_pipeline]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Test Info
+  #         uses: rjstone/discord-webhook-notify@v1
+  #         with:
+  #             severity: info
+  #             details: Test succeeded.
+  #             webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+  #     - name: Test Warn
+  #         uses: rjstone/discord-webhook-notify@v1
+  #         with:
+  #             severity: warn
+  #             details: Test warning.
+  #             webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+  #     - name: Test Error
+  #         uses: rjstone/discord-webhook-notify@v1
+  #         with:
+  #             severity: error
+  #             details: Test error.
+  #             webhookUrl: ${{ secrets.WEBHOOKS_URL }}    
       # - name: 'success pipeline'
       #     uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
       #     if: success()
