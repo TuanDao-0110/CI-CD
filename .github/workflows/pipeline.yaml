@@ -92,9 +92,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Show tag value
-        run: |
-          echo "tag value:"
-          echo ${{ JSON(needs.tag_release.tag.outputs.new_tag) }}
+        run: echo ${{ JSON(needs.tag_release.tag.outputs.new_tag) }}
 
 # notification to discord
 
