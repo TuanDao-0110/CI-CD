@@ -128,3 +128,15 @@ BUG-123: Fix user copy issue
 
 ### `2. Set up Notification`
 
+- use `notification` from <a href=''>Github market </a> to send notifications to our communication flatform. 
+
+### `3. Metrics`
+
+- Create a better view of overall github action's picture with <a href='https://github.com/marketplace/actions/datadog-actions-metrics'>Metrics </a>
+
+### `4. Periodic tasks`
+
+- Periodic tasks is automatically triggered or we have to automate ourself. Example "checking packages for security vulnerabilities'. Several tools can already do this for us. 
+- Github provide such tool `Dependabot`, or free tools (e.g open source)
+- Set up <a href='https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule'> Schedule </a> and <a href='https://github.com/Jtalk/url-health-check-action'> url health check actions</a>
+
