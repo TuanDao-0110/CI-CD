@@ -28,7 +28,7 @@ jobs:
 
   simple_deployment_pipeline:
     runs-on: ubuntu-20.04
-    if: ${{ github.event_name == 'push' }}
+    if: "!contains(toJson(github.event.commits.*.message), '#skip')"
     defaults:
       run:
         working-directory: ./fullstackopen-cicd/

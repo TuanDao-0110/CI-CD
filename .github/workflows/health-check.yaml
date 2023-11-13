@@ -1,8 +1,8 @@
 name: HealthCheck
 on:
-  # schedule:
-  #   # * is a special character in YAML so you have to quote this string
-  #   - cron:  '* 5 * * 1-7'
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '* * * * 1-7'
   push:
     branches:
       - master
