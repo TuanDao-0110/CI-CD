@@ -28,7 +28,7 @@ jobs:
 
   simple_deployment_pipeline:
     runs-on: ubuntu-20.04
-    if: "!contains(toJson(github.event.commits.*.message), '#skip')"
+    if: "contains(toJson(github.event.commits.*.message), '#active')"
     defaults:
       run:
         working-directory: ./fullstackopen-cicd/
@@ -79,7 +79,7 @@ jobs:
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-22.04
-    if: "!contains(toJson(github.event.commits.*.message), '#skip')"
+    if: "contains(toJson(github.event.commits.*.message), '#active')"
     permissions:
       contents: write
     steps:
